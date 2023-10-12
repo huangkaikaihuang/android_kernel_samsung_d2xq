@@ -723,20 +723,21 @@ ifneq ($(CONFIG_FRAME_WARN),0)
 KBUILD_CFLAGS += $(call cc-option,-Wframe-larger-than=${CONFIG_FRAME_WARN})
 endif
 
-# This selects the stack protector compiler flag. Testing it is delayed
-# until after .config has been reprocessed, in the prepare-compiler-check
-# target.
-ifdef CONFIG_CC_STACKPROTECTOR_REGULAR
-  stackp-flag := -fno-stack-protector
-  stackp-name := REGULAR
-else
-ifdef CONFIG_CC_STACKPROTECTOR_STRONG
-  stackp-flag := -fstack-protector-strong
-  stackp-name := STRONG
-else
-  # Force off for distro compilers that enable stack protector by default.
-  stackp-flag := $(call cc-option, -fno-stack-protector)
-endif
+# # This selects the stack protector compiler flag. Testing it is delayed
+# # until after .config has been reprocessed, in the prepare-compiler-check
+# # target.
+# ifdef CONFIG_CC_STACKPROTECTOR_REGULAR
+#   stackp-flag := -fno-stack-protector
+#   stackp-name := REGULAR
+# else
+# ifdef CONFIG_CC_STACKPROTECTOR_STRONG
+#   stackp-flag := -fstack-protector-strong
+#   stackp-name := STRONG
+# else
+#   # Force off for distro compilers that enable stack protector by default.
+#   stackp-flag := $(call cc-option, -fno-stack-protector)
+# endif
+
 endif
 # Find arch-specific stack protector compiler sanity-checking script.
 ifdef CONFIG_CC_STACKPROTECTOR
