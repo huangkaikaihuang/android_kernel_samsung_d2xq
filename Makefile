@@ -727,9 +727,12 @@ endif
 # until after .config has been reprocessed, in the prepare-compiler-check
 # target.
 ifdef CONFIG_CC_STACKPROTECTOR_REGULAR
-  stackp-flag := -fstack-protector
+  stackp-flag := -fno-stack-protector
   stackp-name := REGULAR
-
+else
+ifdef CONFIG_CC_STACKPROTECTOR_STRONG
+  stackp-flag := -fstack-protector-strong
+  stackp-name := STRONG
 else
   # Force off for distro compilers that enable stack protector by default.
   stackp-flag := $(call cc-option, -fno-stack-protector)
